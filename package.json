@@ -1,0 +1,34 @@
+{
+  "name": "react-rhino",
+  "version": "1.0.0",
+  "description": "A simple state management library using React context",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aromalanil/react-rhino.git"
+  },
+  "keywords": [
+    "react-state",
+    "state-management",
+    "react-state-management",
+    "react-rhino",
+    "rhino"
+  ],
+  "author": "Aromal Anil <aromalanilkannan@gmail.com> (https://aromalanil.tech)",
+  "bugs": {
+    "url": "https://github.com/aromalanil/react-rhino/issues"
+  },
+  "homepage": "https://github.com/aromalanil/react-rhino#readme",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.2.2"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.2",
+    "react": "^17.0.1"
+  }
+}
