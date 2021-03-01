@@ -1,0 +1,16 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["airbnb-typescript","plugin:prettier/recommended" ],
+  "parserOptions": {
+        "project": "./tsconfig.json"
+     },
+  "rules": {
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true, "argsIgnorePattern": "next" }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "@typescript-eslint/no-shadow": "off"
+   },
+  "ignorePatterns": ["/dist/*"],
+  "env": {
+    "browser": true
+  }
+}
