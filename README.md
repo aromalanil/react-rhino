@@ -1,6 +1,6 @@
 # 🦏 React Rhino 
 
-React Rhino is a simple yet powerful state management library for [React](https://http://reactjs.org/)
+React Rhino is a simple yet powerful state management library for [React](https://reactjs.org/)
 
 ## Installation 
 
