@@ -1,5 +1,12 @@
 # 🦏 React Rhino 
 
+[![NPM Version](https://img.shields.io/npm/v/react-rhino)](https://www.npmjs.com/package/react-rhino)
+![ESLint Check](https://github.com/aromalanil/react-rhino/workflows/ESLint-Check/badge.svg)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aromalanil/react-rhino/blob/master/LICENSE)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/use-custom-hooks)](https://www.npmjs.com/package/use-custom-hooks)
+
+[![https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-rhino)
+
 React Rhino is a simple yet powerful state management library for [React](https://reactjs.org/)
 
 ## Installation 
