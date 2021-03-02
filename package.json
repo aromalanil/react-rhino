@@ -1,6 +1,6 @@
 {
   "name": "react-rhino",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A simple state management library using React context",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "build": "tsc -b --clean && tsc",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
