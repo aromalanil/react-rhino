@@ -27,6 +27,9 @@
   },
   "homepage": "https://github.com/aromalanil/react-rhino#readme",
   "license": "MIT",
+  "peerDependencies": {
+    "react": "^17.x"
+  },
   "devDependencies": {
     "@types/react": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
