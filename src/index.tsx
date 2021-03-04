@@ -37,20 +37,17 @@ function createRhinoState(globalStatesObject: StateObject) {
    * Provider Component which makes the states available to all the nested components
    */
   function RhinoProvider({ children }: ProviderProps) {
-    const stateData = Object.values(stateDataList);
-    const listLength = stateData.length;
+    const ProviderList = Object.values(stateDataList).map((stateData) => stateData.provider);
 
-    let RootProvider = ({ children }: ProviderProps) => <>{children}</>;
-
-    for (let i = 0; i < listLength; i++) {
-      const Provider = stateData[i].provider;
-      const OldRootProvider = RootProvider;
-      RootProvider = ({ children }: ProviderProps) => (
-        <OldRootProvider>
+    // Combining all providers into a single provider
+    const RootProvider = ProviderList.reduce((ProviderAccumulator, Provider) => {
+      return ({ children }: ProviderProps) => (
+        <ProviderAccumulator>
           <Provider>{children}</Provider>
-        </OldRootProvider>
+        </ProviderAccumulator>
       );
-    }
+    });
+
     return <RootProvider>{children}</RootProvider>;
   }
 
