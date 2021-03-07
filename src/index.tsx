@@ -6,7 +6,7 @@ interface StateObject {
 }
 
 interface StateData<T> {
-  provider: (props: ProviderProps) => JSX.Element;
+  provider: React.FC<ProviderProps>;
   stateHook: () => T;
   updaterHook: () => React.Dispatch<React.SetStateAction<T>>;
 }
@@ -36,7 +36,7 @@ function createRhinoState(globalStatesObject: StateObject) {
    *
    * Provider Component which makes the states available to all the nested components
    */
-  function RhinoProvider({ children }: ProviderProps) {
+  const RhinoProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
     const ProviderList = Object.values(stateDataList).map((stateData) => stateData.provider);
 
     // Combining all providers into a single provider
@@ -49,7 +49,7 @@ function createRhinoState(globalStatesObject: StateObject) {
     });
 
     return <RootProvider>{children}</RootProvider>;
-  }
+  };
 
   /**
    *

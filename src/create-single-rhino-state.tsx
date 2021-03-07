@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createContext, useContext, useState } from 'react';
 
 export interface ProviderProps {
-  children: React.ReactChildren | React.ReactChild;
+  children: React.ReactChild | React.ReactChild[];
 }
 
 /**
@@ -36,7 +36,7 @@ function createSingleRhinoState<T>(initialValue: T) {
    *
    * Provider Component which makes the state available to all the nested components
    */
-  const Provider = ({ children }: ProviderProps) => {
+  const Provider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
     const [state, setState] = useState(initialValue);
 
     return (
