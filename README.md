@@ -30,6 +30,8 @@ npm install react-rhino
 # Or if you use Yarn:
 yarn add react-rhino
 ```
+## Online Playground
+[Here](https://codesandbox.io/s/react-rhino-example-svv5b) is a short demo project  to help familiarize with state management using React Rhino.
 
 ## Usage
 
@@ -117,7 +119,7 @@ const Menu = () => {
 }
 ```
 
-#### A Component which only accesses the updater function
+5. #### A Component which only accesses the updater function
 For a component that only updates the state, import `useSetRhinoState` in the component file that performs update to the global state.
 
 Declare a constant inside the component and assign the constant to a call to `useSetRhinoState("key_to_identify_state_value")` passing in a  key identifying a state value as an argument.
@@ -141,7 +143,7 @@ const Toggle = () => {
  export default Toggle;
 }
 ```
-#### A Component accessing multiple global state values
+6. #### A Component accessing multiple global state values
 Accessing multiple state values is pretty straight forward, declare constants to hold different state values and access state values by calling `useRhinoValue("key")` passing a key identifying with a state value as an argument.
 
 `details.js`
@@ -164,9 +166,6 @@ const Datails= () => {
 }
 ```
 
-## Online Playground
-[Here](https://codesandbox.io/s/react-rhino-example-svv5b) is a short demo project  to help familiarize with state management using React Rhino.
-
 ## API / Documentation
 `createRhinoState` is the only function you can directly import from the package. All other API elements are returned from this function.
 
@@ -186,7 +185,8 @@ const { RhinoProvider, useRhinoState } = createRhinoState({
 export { RhinoProvider, useRhinoState }
 ```
 
-> `createRhinoState` will output `RhinoProvider` and `useRhinoState`, `useRhinoValue` and `useSetRhinoState` hooks. Destructure the `createRhinoSate` Provider to get these  hooks as needed(like in the above snippet).
+>  `createRhinoState` will output `RhinoProvider` , `useRhinoState`, 
+`useRhinoValue` and `useSetRhinoState` hooks
 
 
 ### RhinoProvider
@@ -225,7 +225,6 @@ const darkMode = useRhinoValue("isDarkMode");
 Takes key representing state object as input and returns the function to update the state.
 > You can use this if your component only needs the updater function and not the state itself.
 Having an updater function in the component will not trigger a rerender on the state change.
-Updator functions perform updates on the state values.
 ```jsx
 const setDarkMode = useRhinoValue("isDarkMode");
 /* Here "isDakMode" is the key representing the state */
