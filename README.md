@@ -8,7 +8,19 @@
 [![https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-rhino)
 
 React Rhino is a simple yet powerful state management library for [React](https://reactjs.org/)
+## Why choose Rhino?
 
+### 🏋️‍♂️ Lightweight
+Only **~560** bytes when Minified & Gzipped.
+
+### 🐱‍🏍 Syntax you already know
+Offers a straightforward syntax similar to the built-in hooks of React.
+
+### 👷‍♂️ Easy to Extend
+Add a new global state with just a single line of code, it's that simple.
+
+### 📐 Easy to Use
+Get started with Rhino in a short amount of time.
 ## Installation 
 
 ```bash
@@ -218,22 +230,6 @@ Updator functions perform updates on the state values.
 const setDarkMode = useRhinoValue("isDarkMode");
 /* Here "isDakMode" is the key representing the state */
 ```
-
-## Why choose Rhino?
-
-### 🏋️‍♂️ Lightweight
-Only **~560** bytes when Minified & Gzipped.
-
-### 🐱‍🏍 Syntax you already know
-Offers a straightforward syntax similar to the built-in hooks of React.
-
-### 👷‍♂️ Easy to Extend
-Add a new global state with just a single line of code, it's that simple.
-
-### 📐 Easy to Use
-Get started with Rhino in a short amount of time.
-
-
 
 ## Author
 [Aromal Anil](https://aromalanil.tech)
