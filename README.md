@@ -233,3 +233,6 @@ const setDarkMode = useRhinoValue("isDarkMode");
 ## Author
 [Aromal Anil](https://aromalanil.tech)
 
+## License
+MIT
+
