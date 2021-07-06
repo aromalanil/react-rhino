@@ -25,10 +25,8 @@ yarn add react-rhino
 Set up state management for your application following these three easy steps shown in the example. Or see a  [demo project](https://codesandbox.io/s/react-rhino-example-svv5b) showing `react-rhino` in use.
 
 
-1. ### Create global state
+1. #### Create global state
 To get started, create a file called `states.js`. This file holds a declaration of the global state for the entire app.
-
-### A file to create global states
 
 `states.js`
 ```jsx
@@ -42,7 +40,7 @@ const { RhinoProvider, useRhinoState, useRhinoValue, useSetRhinoState } = create
 export { RhinoProvider, useRhinoState, useRhinoValue, useSetRhinoState }
 ```
 
-2. ### Wrapping App with RhinoProvider
+2. #### Wrapping App with RhinoProvider
 After creating and initializing state for app(in step described above), import `RhinoProvider` inside the top-level `index.js` file of the app. Wrap `<App/>` with `<RhinoProvider>` to make state and updater functions available to child components in the app.
 
 `index.js`
@@ -59,7 +57,7 @@ ReactDOM.render(
 );
 ```
 
-3. ### To consume global state
+3. #### To consume global state
 To consume the global state,  import the `useRhinoState` variable from the component file that requires the use of the global state.
 > Use the array destructuring syntax to pluck out: a constant holding a state value and an updater function to update the same state value from the global state.
 
@@ -84,7 +82,7 @@ import { useRhinoState } from "./states.js"
 export default DarkModeButton;
 ```
 
-4. ### A Component which only reads the state and not the updater function
+4. #### A Component which only reads the state and not the updater function
 For Components that only reads the state values,  declare a constant inside the component and assign the constant to  a call to `useRhinoValue("key_to_identify_state_value")` passing in key as an argument like:
 
 `menu_bar.js`
@@ -107,7 +105,7 @@ const Menu = () => {
 }
 ```
 
-### A Component which only accesses the updater function
+#### A Component which only accesses the updater function
 For a component that only updates the state, import `useSetRhinoState` in the component file that performs update to the global state.
 
 Declare a constant inside the component and assign the constant to a call to `useSetRhinoState("key_to_identify_state_value")` passing in a  key identifying a state value as an argument.
@@ -131,7 +129,7 @@ const Toggle = () => {
  export default Toggle;
 }
 ```
-### A Component accessing multiple global state values
+#### A Component accessing multiple global state values
 Accessing multiple state values is pretty straight forward, declare constants to hold different state values and access state values by calling `useRhinoValue("key")` passing a key identifying with a state value as an argument.
 
 `details.js`
