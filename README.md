@@ -8,6 +8,16 @@
 [![https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-rhino)
 
 React Rhino is a simple yet powerful state management library for [React](https://reactjs.org/)
+
+## Installation 
+
+```bash
+# If you use npm:
+npm install react-rhino
+
+# Or if you use Yarn:
+yarn add react-rhino
+```
 ## Why choose Rhino?
 
 ### 🏋️‍♂️ Lightweight
@@ -21,15 +31,7 @@ Add a new global state with just a single line of code, it's that simple.
 
 ### 📐 Easy to Use
 Get started with Rhino in a short amount of time.
-## Installation 
 
-```bash
-# If you use npm:
-npm install react-rhino
-
-# Or if you use Yarn:
-yarn add react-rhino
-```
 ## Online Playground
 [Here](https://codesandbox.io/s/react-rhino-example-svv5b) is a short demo project  to help familiarize with state management using React Rhino.
 
@@ -96,7 +98,7 @@ import { useRhinoState } from "./states.js"
 export default DarkModeButton;
 ```
 
-4. #### A Component which only reads the state and not the updater function
+### A Component which only reads the state and not the updater function
 For Components that only reads the state values,  declare a constant inside the component and assign the constant to  a call to `useRhinoValue("key_to_identify_state_value")` passing in key as an argument like:
 
 `menu_bar.js`
@@ -119,7 +121,7 @@ const Menu = () => {
 }
 ```
 
-5. #### A Component which only accesses the updater function
+### A Component which only accesses the updater function
 For a component that only updates the state, import `useSetRhinoState` in the component file that performs update to the global state.
 
 Declare a constant inside the component and assign the constant to a call to `useSetRhinoState("key_to_identify_state_value")` passing in a  key identifying a state value as an argument.
@@ -143,7 +145,7 @@ const Toggle = () => {
  export default Toggle;
 }
 ```
-6. #### A Component accessing multiple global state values
+### A Component accessing multiple global state values
 Accessing multiple state values is pretty straight forward, declare constants to hold different state values and access state values by calling `useRhinoValue("key")` passing a key identifying with a state value as an argument.
 
 `details.js`
@@ -207,7 +209,7 @@ function App() {
 ### useRhinoState
 Takes key representing state object as input and returns an array with the state value and the function to update the state.
 
-> This hook is pretty similar to `useState` hook in React
+> This hook is pretty similar to `useState` hook in React.
 ```jsx
 const [darkMode, setDarkMode] = useRhinoState("isDarkMode");
 /* Here "isDakMode" is the key representing the state */
