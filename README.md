@@ -21,7 +21,7 @@ yarn add react-rhino
 ## Why choose Rhino?
 
 ### 🏋️‍♂️ Lightweight
-Only **~560** bytes when Minified & Gzipped.
+Only **~770** bytes when Minified & Gzipped.
 
 ### 🐱‍🏍 Syntax you already know
 Offers a straightforward syntax similar to the built-in hooks of React.
@@ -37,58 +37,44 @@ Get started with Rhino in a short amount of time.
 
 ## Usage
 
-### Getting started
-Set up state management for your application following these three easy steps shown in the example. Or see a  [demo project](https://codesandbox.io/s/react-rhino-example-svv5b) showing `react-rhino` in use.
+Set up React Rhino in your project using these simple steps
 
+### Step 1
+Wrap your app with `RhinoProvider` and pass the initialStates object to it
 
-1. #### Create global state
-To get started, create a file called `states.js`. This file holds a declaration of the global state for the entire app.
+> Note: `initialStates` is an object in which each entries will  become a global state. In this object key will be the identifier for the state and value will be the initial value of that state.
 
-`states.js`
 ```jsx
-import createRhinoState from "react-rhino";
+import { RhinoProvider } from 'react-rhino';
 
-const { RhinoProvider, useRhinoState, useRhinoValue, useSetRhinoState } = createRhinoState({
-   name: "John Doe", // Will become a new global state
-   dark_mode: true // Will become another new global state
-});
+const initialStates = {
+ dark_mode: true
+}
 
-export { RhinoProvider, useRhinoState, useRhinoValue, useSetRhinoState }
+function App() {
+  return (
+    <RhinoProvider initialStates={initialStates}>
+      <Counter />
+    </RhinoProvider>
+  );
+}
 ```
 
-2. #### Wrapping App with RhinoProvider
-After creating and initializing state for app(in step described above), import `RhinoProvider` inside the top-level `index.js` file of the app. Wrap `<App/>` with `<RhinoProvider>` to make state and updater functions available to child components in the app.
+### Step 2
+Consume global state in any of your components, by using the `useRhinoState` hook as in the below example
 
-`index.js`
 ```jsx
-import { RhinoProvider } from "./states.js"
-import App from "./App";
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <RhinoProvider>
-    <App />
-  </RhinoProvider>,
-  rootElement
-);
-```
-
-3. #### To consume global state
-To consume the global state,  import the `useRhinoState` variable from the component file that requires the use of the global state.
-> Use the array destructuring syntax to pluck out: a constant holding a state value and an updater function to update the same state value from the global state.
-
-`dark_mode.js`
-```jsx
-import { useRhinoState } from "./states.js"
+import { useRhinoState } from "react-rhino"
 
  const DarkModeButton = () => {
 
- /* "dark_mode" is the key to identify the state */
+ /* "dark_mode" is the key given to the state in initialStates */
  const [isDarkMode, setDarkMode] = useRhinoState("dark_mode"); 
 
  const toggleDarkMode = () => {
    setDarkMode(currentMode => !currentMode);
  }
+
  return(
    <p>{ isDarkMode ? "Switch to Light" : "Switch to dark" }</p>
    <button onClick={toggleDarkMode}>Toggle</button>
@@ -98,12 +84,67 @@ import { useRhinoState } from "./states.js"
 export default DarkModeButton;
 ```
 
-### A Component which only reads the state and not the updater function
-For Components that only reads the state values,  declare a constant inside the component and assign the constant to  a call to `useRhinoValue("key_to_identify_state_value")` passing in key as an argument like:
+> Note : `useRhinoState` is similar to the `useState` hook of React. `useRhinoState` will also returns an array containing the state and it's updator function.<br/><br/>
+The only difference is that unlike 
+`useState` hook we pass the key of the global state to `useRhinoState` hook.
+
+
+## API / Documentation
+### RhinoProvider
+Components that use Rhino state need `RhinoProvider` to appear somewhere in the parent tree. A good place to put this is in your root component.
+
+> `RhinoProvider` takes only a single prop, `initialStates`. Each entries in `initialStates` will be converted in to a global state. <br/> <br/>Each key represents a global state and the corresponding values of the keys will become the initial value of the state.
+
+```js
+import { RhinoProvider } from "react-rhino";
+
+const initialStates={
+   name: "John Doe", // Will become a global state with initial value "John Doe"
+   isDarkMode : true, // Will become another global state with initial value true
+}
+
+function App() {
+  return (
+    <RhinoProvider initialStates={initialStates}>
+      <SearchBar />
+    </RhinoProvider>
+  );
+}
+```
+
+### useRhinoState
+Takes key representing the state as argument and returns an array with the state value and the function to update the state.
+
+> This hook is pretty similar to `useState` hook in React.
+```jsx
+const [darkMode, setDarkMode] = useRhinoState("isDarkMode");
+/* Here "isDakMode" is the key representing the state */
+```
+
+### useRhinoValue
+Takes key representing the state as argument and returns only the the state value.
+> You can use this if your component only needs to read the state but perform no updates.
+```jsx
+const darkMode = useRhinoValue("isDarkMode");
+/* Here "isDakMode" is the key representing the state */
+```
+
+### useSetRhinoState
+Takes key representing the state as argument and returns the function to update the state.
+> You can use this if your component only needs the updater function and not the state itself.
+Having an updater function in the component will not trigger a rerender on the state change.
+```jsx
+const setDarkMode = useRhinoValue("isDarkMode");
+/* Here "isDakMode" is the key representing the state */
+```
+
+## Some Examples
+### A Component which only read the state and not the updater function
+For Components that only read the state values,  declare a constant inside the component and assign the constant to  a call to `useRhinoValue("key_to_identify_state_value")` passing in key as an argument like:
 
 `menu_bar.js`
 ```jsx
-import { useRhinoValue } from "./states.js"
+import { useRhinoValue } from "react-rhino"
 
 const Menu = () => {
 
@@ -129,7 +170,7 @@ Declare a constant inside the component and assign the constant to a call to `us
 `toggle.js`
 > This component will not rerender if the state `isDarkMode` changes as it only uses the updater function and not the state itself.
 ```jsx
-import { useSetRhinoState } from "./states.js"
+import { useSetRhinoState } from "react-rhino"
 
 const Toggle = () => {
 
@@ -151,7 +192,7 @@ Accessing multiple state values is pretty straight forward, declare constants to
 `details.js`
 
 ```jsx
-import { useRhinoValue } from "./states.js"
+import { useRhinoValue } from "react-rhino"
 
 const Datails= () => {
   /*  
@@ -168,73 +209,31 @@ const Datails= () => {
 }
 ```
 
-## API / Documentation
-`createRhinoState` is the only function you can directly import from the package. All other API elements are returned from this function.
-
-### createRhinoState()
-Takes a single object as argument in which each global states as its entries.
-
-Here each key represents each state with their corresponding values being their initial value.
-
-```jsx
-import createRhinoState from "react-rhino";
-
-const { RhinoProvider, useRhinoState } = createRhinoState({
-   name: "John Doe", // Will create a global state with initial value "John Doe"
-   isDarkMode : true, // Will create another global state with initial value true
-});
-
-export { RhinoProvider, useRhinoState }
-```
-
->  `createRhinoState` will output `RhinoProvider` , `useRhinoState`, 
-`useRhinoValue` and `useSetRhinoState` hooks
-
-
-### RhinoProvider
-Components that use Rhino state need `RhinoProvider` to appear somewhere in the parent tree. A good place to put this is in your root component.
-
-```js
-import { RhinoProvider } from "./states.js";
-
-function App() {
-  return (
-    <RhinoProvider>
-      <SearchBar />
-    </RhinoProvider>
-  );
-}
-```
-
-### useRhinoState
-Takes key representing state object as input and returns an array with the state value and the function to update the state.
-
-> This hook is pretty similar to `useState` hook in React.
-```jsx
-const [darkMode, setDarkMode] = useRhinoState("isDarkMode");
-/* Here "isDakMode" is the key representing the state */
-```
-
-### useRhinoValue
-Takes key representing state object as input and returns the state value.
-> You can use this if your component only needs to read the state but perform no updates.
-```jsx
-const darkMode = useRhinoValue("isDarkMode");
-/* Here "isDakMode" is the key representing the state */
-```
-
-### useSetRhinoState
-Takes key representing state object as input and returns the function to update the state.
-> You can use this if your component only needs the updater function and not the state itself.
-Having an updater function in the component will not trigger a rerender on the state change.
-```jsx
-const setDarkMode = useRhinoValue("isDarkMode");
-/* Here "isDakMode" is the key representing the state */
-```
-
 ## Author
 [Aromal Anil](https://aromalanil.tech)
 
 ## License
-MIT
+```
+MIT License
+
+Copyright (c) 2021 Aromal Anil
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
