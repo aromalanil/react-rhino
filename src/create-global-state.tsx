@@ -1,9 +1,6 @@
 import * as React from 'react';
 import { createContext, useContext, useState } from 'react';
-
-export interface ProviderProps {
-  children: React.ReactChild | React.ReactChild[];
-}
+import { ProviderProps } from './types';
 
 /**
  *
@@ -13,7 +10,7 @@ export interface ProviderProps {
  *
  * @param initialValue Initial value of the state
  */
-function createSingleRhinoState<T>(initialValue: T) {
+function createGlobalState<T>(initialValue: T) {
   // Creating Context for state value & state updater function
   const ValueContext = React.createContext(initialValue);
   const UpdaterContext = createContext<React.Dispatch<React.SetStateAction<T>>>(() => null);
@@ -48,4 +45,4 @@ function createSingleRhinoState<T>(initialValue: T) {
 
   return { Provider, useStateValue, useStateUpdate };
 }
-export default createSingleRhinoState;
+export default createGlobalState;
