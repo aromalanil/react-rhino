@@ -33,7 +33,9 @@ Add a new global state with just a single line of code, it's that simple.
 Get started with Rhino in a short amount of time.
 
 ## Online Playground
-[Here](https://codesandbox.io/s/react-rhino-example-svv5b) is a short demo project  to help familiarize with state management using React Rhino.
+Use the button below to play with a small demo project to help familiarize with state management using React Rhino.
+
+[![View on Codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-rhino-example-svv5b)
 
 ## Usage
 
