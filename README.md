@@ -23,7 +23,7 @@ yarn add react-rhino
 ### 🏋️‍♂️ Lightweight
 Only **~770** bytes when Minified & Gzipped.
 
-### 🐱‍🏍 Syntax you already know
+### 🚀 Syntax you already know
 Offers a straightforward syntax similar to the built-in hooks of React.
 
 ### 👷‍♂️ Easy to Extend
@@ -84,7 +84,7 @@ import { useRhinoState } from "react-rhino"
 export default DarkModeButton;
 ```
 
-> Note : `useRhinoState` is similar to the `useState` hook of React. `useRhinoState` will also returns an array containing the state and it's updator function.<br/><br/>
+> Note : `useRhinoState` is similar to the `useState` hook of React. `useRhinoState` will also returns an array containing the state and it's updater function.<br/><br/>
 The only difference is that unlike 
 `useState` hook we pass the key of the global state to `useRhinoState` hook.
 
@@ -132,9 +132,9 @@ const darkMode = useRhinoValue("isDarkMode");
 ### useSetRhinoState
 Takes key representing the state as argument and returns the function to update the state.
 > You can use this if your component only needs the updater function and not the state itself.
-Having an updater function in the component will not trigger a rerender on the state change.
+Having an updater function in the component will not trigger a re-render on the state change.
 ```jsx
-const setDarkMode = useRhinoValue("isDarkMode");
+const setDarkMode = useSetRhinoState("isDarkMode");
 /* Here "isDakMode" is the key representing the state */
 ```
 
@@ -168,7 +168,7 @@ For a component that only updates the state, import `useSetRhinoState` in the co
 Declare a constant inside the component and assign the constant to a call to `useSetRhinoState("key_to_identify_state_value")` passing in a  key identifying a state value as an argument.
 
 `toggle.js`
-> This component will not rerender if the state `isDarkMode` changes as it only uses the updater function and not the state itself.
+> This component will not re-render if the state `isDarkMode` changes as it only uses the updater function and not the state itself.
 ```jsx
 import { useSetRhinoState } from "react-rhino"
 
@@ -194,9 +194,9 @@ Accessing multiple state values is pretty straight forward, declare constants to
 ```jsx
 import { useRhinoValue } from "react-rhino"
 
-const Datails= () => {
+const Details= () => {
   /*  
-      Seperate calls to useSetRhinoState return seperate state values
+      Separate calls to useSetRhinoState return separate state values
       based on keys that identify with state value.
   */
   const userName = useRhinoValue("name")
