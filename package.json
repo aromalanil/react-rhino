@@ -1,6 +1,6 @@
 {
   "name": "react-rhino",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A simple global state management library for React.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

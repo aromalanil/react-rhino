@@ -44,7 +44,7 @@ Set up React Rhino in your project using these simple steps
 ### Step 1
 Wrap your app with `RhinoProvider` and pass the store object to it
 
-> Note: `store` is an object in which each entries will  become a global state. In this object key will be the identifier for the state and value will be the initial value of that state.
+> Note: `store` is an object in which each entries will  become a global state. In `store`, keys will be the identifiers for each state and their corresponding value will be the initial values of that particular state.
 
 ```jsx
 import { RhinoProvider } from 'react-rhino';
@@ -95,7 +95,7 @@ The only difference is that unlike
 ### RhinoProvider
 Components that use Rhino state need `RhinoProvider` to appear somewhere in the parent tree. A good place to put this is in your root component.
 
-> `RhinoProvider` takes only a single prop, `store`. Each entries in `store` will be converted in to a global state. <br/> <br/>Each key represents a global state and the corresponding values of the keys will become the initial value of the state.
+> `RhinoProvider` takes only a single prop, `store`. Each entries in `store` will be converted to a global state. <br/> <br/>Each key in `store` represents a global state and the values corresponding to them becomes the initial values of those states respectively.
 
 ```js
 import { RhinoProvider } from "react-rhino";
