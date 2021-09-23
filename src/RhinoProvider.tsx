@@ -4,7 +4,7 @@ import { IProvider, ProviderProps } from './types';
 import createGlobalState from './create-global-state';
 import CombineProviders from './utils/CombineProviders';
 
-interface StateObject {
+interface Store {
   [key: string]: any;
 }
 
@@ -18,20 +18,17 @@ interface StateDataList {
 }
 
 interface RhinoProviderProps extends ProviderProps {
-  initialStates: StateObject;
+  store: Store;
 }
 
 const StateDataContext = createContext<StateDataList>({});
 
-const RhinoProvider: React.FC<RhinoProviderProps> = ({
-  children,
-  initialStates: initialStatesObject,
-}: RhinoProviderProps) => {
+const RhinoProvider: React.FC<RhinoProviderProps> = ({ children, store }: RhinoProviderProps) => {
   const stateDataList: StateDataList = {};
   const ProviderList: Array<IProvider> = [];
 
-  Object.keys(initialStatesObject).forEach((key) => {
-    const initialValue = initialStatesObject[key];
+  Object.keys(store).forEach((key) => {
+    const initialValue = store[key];
     const { Provider, useStateValue, useStateUpdate } = createGlobalState(initialValue);
 
     stateDataList[key] = {

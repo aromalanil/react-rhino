@@ -42,20 +42,20 @@ Use the button below to play with a small demo project to help familiarize with 
 Set up React Rhino in your project using these simple steps
 
 ### Step 1
-Wrap your app with `RhinoProvider` and pass the initialStates object to it
+Wrap your app with `RhinoProvider` and pass the store object to it
 
-> Note: `initialStates` is an object in which each entries will  become a global state. In this object key will be the identifier for the state and value will be the initial value of that state.
+> Note: `store` is an object in which each entries will  become a global state. In this object key will be the identifier for the state and value will be the initial value of that state.
 
 ```jsx
 import { RhinoProvider } from 'react-rhino';
 
-const initialStates = {
+const store = {
  dark_mode: true
 }
 
 function App() {
   return (
-    <RhinoProvider initialStates={initialStates}>
+    <RhinoProvider store={store}>
       <Counter />
     </RhinoProvider>
   );
@@ -70,7 +70,7 @@ import { useRhinoState } from "react-rhino"
 
  const DarkModeButton = () => {
 
- /* "dark_mode" is the key given to the state in initialStates */
+ /* "dark_mode" is the key given to this state in the store */
  const [isDarkMode, setDarkMode] = useRhinoState("dark_mode"); 
 
  const toggleDarkMode = () => {
@@ -95,19 +95,19 @@ The only difference is that unlike
 ### RhinoProvider
 Components that use Rhino state need `RhinoProvider` to appear somewhere in the parent tree. A good place to put this is in your root component.
 
-> `RhinoProvider` takes only a single prop, `initialStates`. Each entries in `initialStates` will be converted in to a global state. <br/> <br/>Each key represents a global state and the corresponding values of the keys will become the initial value of the state.
+> `RhinoProvider` takes only a single prop, `store`. Each entries in `store` will be converted in to a global state. <br/> <br/>Each key represents a global state and the corresponding values of the keys will become the initial value of the state.
 
 ```js
 import { RhinoProvider } from "react-rhino";
 
-const initialStates={
+const store={
    name: "John Doe", // Will become a global state with initial value "John Doe"
    isDarkMode : true, // Will become another global state with initial value true
 }
 
 function App() {
   return (
-    <RhinoProvider initialStates={initialStates}>
+    <RhinoProvider store={store}>
       <SearchBar />
     </RhinoProvider>
   );
