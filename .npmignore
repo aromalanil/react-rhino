@@ -1,6 +1,7 @@
 tsconfig.json
 src
 .github
+.husky
 .eslintrc.json
 .prettierrc
 CODE_OF_CONDUCT.md
