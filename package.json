@@ -1,6 +1,6 @@
 {
   "name": "react-rhino",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "A simple global state management library for React.js",
   "type": "module",
   "main": "dist/index.js",
@@ -23,7 +23,7 @@
     "react-rhino",
     "rhino"
   ],
-  "author": "Aromal Anil <aromalanilkannan@gmail.com> (https://aromalanil.tech)",
+  "author": "Aromal Anil <aromalanilkannan@gmail.com> (https://aromalanil.in)",
   "bugs": {
     "url": "https://github.com/aromalanil/react-rhino/issues"
   },

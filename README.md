@@ -212,7 +212,7 @@ const Details= () => {
 ```
 
 ## Author
-[Aromal Anil](https://aromalanil.tech)
+[Aromal Anil](https://aromalanil.in)
 
 ## License
 ```
