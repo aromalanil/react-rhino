@@ -16,16 +16,16 @@ const CombineProviders: React.FC<CombineProvidersProps> = ({
 }: CombineProvidersProps) => {
   if (providers.length === 0) return <>{children}</>;
 
-  // Nesting all providers to form a RootProvider
-  const RootProvider = providers.reduce((ProviderAccumulator, Provider) => {
-    return ({ children }: ProviderProps) => (
-      <ProviderAccumulator>
-        <Provider>{children}</Provider>
-      </ProviderAccumulator>
-    );
-  });
-
-  return <RootProvider>{children}</RootProvider>;
+  return (
+    <>
+      {providers.reduceRight(
+        (acc, Provider) => (
+          <Provider>{acc}</Provider>
+        ),
+        children,
+      )}
+    </>
+  );
 };
 
 export default CombineProviders;
