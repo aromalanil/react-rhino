@@ -1,6 +1,6 @@
 {
   "name": "react-rhino",
-  "version": "2.1.7",
+  "version": "3.0.0",
   "description": "A simple global state management library for React.js",
   "type": "module",
   "main": "dist/index.js",
@@ -30,10 +30,10 @@
   "homepage": "https://github.com/aromalanil/react-rhino#readme",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^17.x"
+    "react": "^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.2",
+    "@types/react": "^18.3.31",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -46,7 +46,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^7.0.2",
     "prettier": "^2.2.1",
-    "react": "^17.0.1",
+    "react": "^18.3.1",
     "typescript": "^4.2.2"
   },
   "lint-staged": {

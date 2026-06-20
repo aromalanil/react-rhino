@@ -14,7 +14,7 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "@typescript-eslint/no-shadow": "off"
    },
-  "ignorePatterns": ["/dist/*"],
+  "ignorePatterns": ["/dist/*", "/example/*"],
   "env": {
     "browser": true
   }

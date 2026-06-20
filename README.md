@@ -1,241 +1,148 @@
-# 🦏 React Rhino 
+<div align="center">
+  <h1>🦏 React Rhino</h1>
+  <p><strong>A simple, blazingly fast, and deeply type-safe global state manager for React.</strong></p>
 
-[![NPM Version](https://img.shields.io/npm/v/react-rhino)](https://www.npmjs.com/package/react-rhino)
-![ESLint Check](https://github.com/aromalanil/react-rhino/workflows/ESLint-Check/badge.svg)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aromalanil/react-rhino/blob/master/LICENSE)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-rhino)](https://www.npmjs.com/package/react-rhino)
+  [![NPM Version](https://img.shields.io/npm/v/react-rhino?style=flat-square&color=blue)](https://www.npmjs.com/package/react-rhino)
+  ![ESLint Check](https://github.com/aromalanil/react-rhino/workflows/ESLint-Check/badge.svg?style=flat-square)
+  [![Bundle Size](https://img.shields.io/bundlephobia/minzip/react-rhino?style=flat-square&label=size)](https://bundlephobia.com/result?p=react-rhino)
+  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/aromalanil/react-rhino/blob/master/LICENSE)
 
-[![https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-rhino.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-rhino)
+  <p><i>Version 3 is here! Ditch the boilerplate and embrace pure, decoupled state.</i></p>
+</div>
 
-React Rhino is a simple yet powerful state management library for [React](https://reactjs.org/)
+---
 
-## Installation 
+> **Note**: This is the documentation for **v3**. Upgrading from v2? Check out the [v3 Migration Guide](./MIGRATION_V3.md). For older docs, see [README-v2.md](./README-v2.md).
+
+## 🤔 What React Rhino is (and what it isn't)
+
+We built Rhino because we were tired of boilerplate-heavy setups just to share a string or a boolean across two components. 
+
+### What it IS:
+- **Featherweight & Zero Dependencies**: With a minified + gzipped size of just **~700 bytes** (and ~13kB unpacked package size), React Rhino practically disappears into your bundle. No external dependencies. Just pure React goodness.
+- **Blazingly Fast**: Powered by an event-driven `useSyncExternalStore` architecture. Components *only* re-render if the exact state key they are subscribed to changes. No more unnecessary re-renders. No more "Provider Hell".
+- **Type-Safe by Default**: Thanks to the `createRhinoStore` factory, you get 100% perfect type inference and autocompletion out-of-the-box. No manual interface definitions required.
+- **Familiar**: The syntax is identical to React's native `useState`. If you know React, you already know Rhino.
+
+### What it ISN'T:
+- **A monolithic state machine**: Rhino intentionally avoids complex middlewares, time-travel debugging, reducers, or deeply nested derived state selectors. 
+- **When to look elsewhere**: If you are building a massive enterprise application that heavily relies on complex state middleware, intricate data transformations, or devtools integrations, you should consider sophisticated options like **Zustand**, **Redux Toolkit**, or **Jotai**. 
+
+Rhino is for the indie hacker, the clean-code enthusiast, and the pragmatic developer who wants simple, decoupled global state *that just works*.
+
+---
+
+## 📦 Installation 
 
 ```bash
-# If you use npm:
+# npm
 npm install react-rhino
 
-# Or if you use Yarn:
+# yarn
 yarn add react-rhino
+
+# pnpm
+pnpm add react-rhino
 ```
-## Why choose Rhino?
 
-### 🏋️‍♂️ Lightweight
-Only **~770** bytes when Minified & Gzipped.
+## 🚀 Quick Start
 
-### 🚀 Syntax you already know
-Offers a straightforward syntax similar to the built-in hooks of React.
+Use the `createRhinoStore` factory function to generate strongly-typed providers and hooks tailored precisely to your store.
 
-### 👷‍♂️ Easy to Extend
-Add a new global state with just a single line of code, it's that simple.
+### Step 1: Define your store
+Create a central file for your state (e.g., `store.ts`). Just define a plain object.
 
-### 📐 Easy to Use
-Get started with Rhino in a short amount of time.
-
-## Online Playground
-Use the button below to play with a small demo project to help familiarize with state management using React Rhino.
-
-[![View on Codesandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-rhino-example-svv5b)
-
-## Usage
-
-Set up React Rhino in your project using these simple steps
-
-### Step 1
-Wrap your app with `RhinoProvider` and pass the store object to it
-
-> Note: `store` is an object in which each entries will  become a global state. In `store`, keys will be the identifiers for each state and their corresponding value will be the initial values of that particular state.
-
-```jsx
-import { RhinoProvider } from 'react-rhino';
+```tsx
+import createRhinoStore from 'react-rhino';
 
 const store = {
- dark_mode: true
-}
+  darkMode: true,
+  userName: "John Doe",
+  count: 0
+};
+
+// createRhinoStore automatically infers all keys and types from your store object!
+export const { 
+  RhinoProvider, 
+  useRhinoState, 
+  useRhinoValue, 
+  useSetRhinoState 
+} = createRhinoStore(store);
+```
+
+### Step 2: Wrap your App
+Wrap your application (or a part of it) with the generated `RhinoProvider`.
+
+```tsx
+import { RhinoProvider } from './store';
+import Counter from './Counter';
+import Header from './Header';
 
 function App() {
   return (
-    <RhinoProvider store={store}>
+    <RhinoProvider>
+      <Header />
       <Counter />
     </RhinoProvider>
   );
 }
+
+export default App;
 ```
 
-### Step 2
-Consume global state in any of your components, by using the `useRhinoState` hook as in the below example
+### Step 3: Consume State Anywhere
+Use your generated hooks anywhere inside the provider. Enjoy the magical TypeScript autocompletion!
 
-```jsx
-import { useRhinoState } from "react-rhino"
+```tsx
+import { useRhinoState, useSetRhinoState } from './store';
 
- const DarkModeButton = () => {
+const Counter = () => {
+  // Full autocompletion for "count", and perfect type inference for `setCount`!
+  const [count, setCount] = useRhinoState("count"); 
 
- /* "dark_mode" is the key given to this state in the store */
- const [isDarkMode, setDarkMode] = useRhinoState("dark_mode"); 
-
- const toggleDarkMode = () => {
-   setDarkMode(currentMode => !currentMode);
- }
-
- return(
-   <p>{ isDarkMode ? "Switch to Light" : "Switch to dark" }</p>
-   <button onClick={toggleDarkMode}>Toggle</button>
- );
-}
-
-export default DarkModeButton;
-```
-
-> Note : `useRhinoState` is similar to the `useState` hook of React. `useRhinoState` will also returns an array containing the state and it's updater function.<br/><br/>
-The only difference is that unlike 
-`useState` hook we pass the key of the global state to `useRhinoState` hook.
-
-
-## API / Documentation
-### RhinoProvider
-Components that use Rhino state need `RhinoProvider` to appear somewhere in the parent tree. A good place to put this is in your root component.
-
-> `RhinoProvider` takes only a single prop, `store`. Each entries in `store` will be converted to a global state. <br/> <br/>Each key in `store` represents a global state and the values corresponding to them becomes the initial values of those states respectively.
-
-```js
-import { RhinoProvider } from "react-rhino";
-
-const store={
-   name: "John Doe", // Will become a global state with initial value "John Doe"
-   isDarkMode : true, // Will become another global state with initial value true
-}
-
-function App() {
   return (
-    <RhinoProvider store={store}>
-      <SearchBar />
-    </RhinoProvider>
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(prev => prev + 1)}>Increment</button>
+    </div>
   );
 }
-```
 
-### useRhinoState
-Takes key representing the state as argument and returns an array with the state value and the function to update the state.
+export const Header = () => {
+  // Only updates the state. Doesn't read it.
+  // This component will NEVER re-render when "count" changes! ⚡
+  const setCount = useSetRhinoState("count");
 
-> This hook is pretty similar to `useState` hook in React.
-```jsx
-const [darkMode, setDarkMode] = useRhinoState("isDarkMode");
-/* Here "isDakMode" is the key representing the state */
-```
-
-### useRhinoValue
-Takes key representing the state as argument and returns only the the state value.
-> You can use this if your component only needs to read the state but perform no updates.
-```jsx
-const darkMode = useRhinoValue("isDarkMode");
-/* Here "isDakMode" is the key representing the state */
-```
-
-### useSetRhinoState
-Takes key representing the state as argument and returns the function to update the state.
-> You can use this if your component only needs the updater function and not the state itself.
-Having an updater function in the component will not trigger a re-render on the state change.
-```jsx
-const setDarkMode = useSetRhinoState("isDarkMode");
-/* Here "isDakMode" is the key representing the state */
-```
-
-## Some Examples
-### A Component which only read the state and not the updater function
-For Components that only read the state values,  declare a constant inside the component and assign the constant to  a call to `useRhinoValue("key_to_identify_state_value")` passing in key as an argument like:
-
-`menu_bar.js`
-```jsx
-import { useRhinoValue } from "react-rhino"
-
-const Menu = () => {
-
- /* useRhinoValue only return state value */
- const isDarkMode = useRhinoValue("dark_mode"); 
-
- return(
-   <nav>
-    {/* Other nav contents */}
-    <p>{`Currently it is ${isDarkMode ? "Dark" : "Light"}`}</p>
-   </nav>
- );
-
- export default Menu;
+  return <button onClick={() => setCount(0)}>Reset Counter</button>;
 }
 ```
 
-### A Component which only accesses the updater function
-For a component that only updates the state, import `useSetRhinoState` in the component file that performs update to the global state.
+## 📖 Hooks API Overview
 
-Declare a constant inside the component and assign the constant to a call to `useSetRhinoState("key_to_identify_state_value")` passing in a  key identifying a state value as an argument.
+### `useRhinoState(key)`
+Returns a tuple with the current state value and a setter function, identical to `useState`.
 
-`toggle.js`
-> This component will not re-render if the state `isDarkMode` changes as it only uses the updater function and not the state itself.
-```jsx
-import { useSetRhinoState } from "react-rhino"
+### `useRhinoValue(key)`
+Returns only the state value. Use this if your component only needs to read the state but performs no updates.
 
-const Toggle = () => {
+### `useSetRhinoState(key)`
+Returns only the setter function. **Pro-tip**: Use this if your component only updates the state without reading it. It guarantees the component will **not** re-render when the state changes!
 
- /* useSetRhinoState only return updater function */
- const setDarkMode = useSetRhinoState("dark_mode");
+---
 
- const toggleDarkMode = () => {
-   setDarkMode(currentMode => !currentMode);
- }
+## 🎮 Example App
 
- return <button onClick={toggleDarkMode}>Toggle DarkMode</button>
+Want to see it in action? Check out the example app in the `example` directory.
 
- export default Toggle;
-}
-```
-### A Component accessing multiple global state values
-Accessing multiple state values is pretty straight forward, declare constants to hold different state values and access state values by calling `useRhinoValue("key")` passing a key identifying with a state value as an argument.
-
-`details.js`
-
-```jsx
-import { useRhinoValue } from "react-rhino"
-
-const Details= () => {
-  /*  
-      Separate calls to useSetRhinoState return separate state values
-      based on keys that identify with state value.
-  */
-  const userName = useRhinoValue("name")
-  const addressDetails = useRhinoValue("addressDetails")
-  return(<div>
-      <span>{userName}</span>
-  </div>
-  )
-
-}
+```bash
+cd example
+npm install
+npm run dev
 ```
 
-## Author
-[Aromal Anil](https://aromalanil.in)
+---
 
-## License
-```
-MIT License
-
-Copyright (c) 2021 Aromal Anil
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
-
+<div align="center">
+  <p>Built with ❤️ by <a href="https://aromalanil.in">Aromal Anil</a></p>
+  <p>Released under the MIT License.</p>
+</div>
