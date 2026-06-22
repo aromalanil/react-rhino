@@ -1,12 +1,25 @@
 {
   "name": "react-rhino",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A simple global state management library for React.js",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
   "scripts": {
-    "build": "tsc -b --clean && tsc",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --clean",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "prepublishOnly": "npm run build",
@@ -47,6 +60,7 @@
     "husky": "^7.0.2",
     "prettier": "^2.2.1",
     "react": "^18.3.1",
+    "tsup": "^8.5.1",
     "typescript": "^4.2.2"
   },
   "lint-staged": {
