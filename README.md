@@ -19,7 +19,7 @@
 We built Rhino because we were tired of boilerplate-heavy setups just to share a string or a boolean across two components. 
 
 ### What it IS:
-- **Featherweight & Zero Dependencies**: With a minified + gzipped size of just **~700 bytes** (and ~13kB unpacked package size), React Rhino practically disappears into your bundle. No external dependencies. Just pure React goodness.
+- **Featherweight & Zero Dependencies**: With a minified + gzipped size of just **~860 bytes**, React Rhino practically disappears into your bundle. No external dependencies. Just pure React goodness.
 - **Blazingly Fast**: Powered by an event-driven `useSyncExternalStore` architecture. Components *only* re-render if the exact state key they are subscribed to changes. No more unnecessary re-renders. No more "Provider Hell".
 - **Type-Safe by Default**: Thanks to the `createRhinoStore` factory, you get 100% perfect type inference and autocompletion out-of-the-box. No manual interface definitions required.
 - **Familiar**: The syntax is identical to React's native `useState`. If you know React, you already know Rhino.
