@@ -1,0 +1,11 @@
+# React Rhino
+
+> A lightweight, deeply type-safe React global state manager with zero dependencies. Blazingly fast.
+
+React Rhino provides a minimal, event-driven architecture using `useSyncExternalStore` for predictable and efficient global state management.
+
+- Use `createRhinoStore(initialState)` to generate your store's context provider and hooks.
+- Hooks automatically infer types from the initial state object.
+- Components only re-render if the specifically subscribed state key changes.
+
+See `llms-full.txt` for detailed usage examples and complete API reference.

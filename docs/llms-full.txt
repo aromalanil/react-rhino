@@ -1,0 +1,68 @@
+# React Rhino - Full Documentation
+
+> A lightweight, deeply type-safe React global state manager with zero dependencies. Blazingly fast.
+
+React Rhino provides a minimal, event-driven architecture using `useSyncExternalStore` for predictable and efficient global state management.
+
+## Installation
+```bash
+npm install react-rhino
+```
+
+## Quick Start
+
+### 1. Define the Store
+```tsx
+import createRhinoStore from 'react-rhino';
+
+const store = {
+  darkMode: true,
+  count: 0
+};
+
+export const { RhinoProvider, useRhinoState, useRhinoValue, useSetRhinoState } = createRhinoStore(store);
+```
+
+### 2. Wrap Application
+```tsx
+import { RhinoProvider } from './store';
+import App from './App';
+
+export default function Root() {
+  return (
+    <RhinoProvider>
+      <App />
+    </RhinoProvider>
+  );
+}
+```
+
+### 3. Use State
+```tsx
+import { useRhinoState, useRhinoValue, useSetRhinoState } from './store';
+
+function Counter() {
+  const [count, setCount] = useRhinoState('count');
+  return <button onClick={() => setCount(prev => prev + 1)}>Count: {count}</button>;
+}
+
+function ThemeToggle() {
+  const isDark = useRhinoValue('darkMode');
+  const setDark = useSetRhinoState('darkMode');
+  return <button onClick={() => setDark(!isDark)}>Toggle {isDark ? 'Light' : 'Dark'}</button>;
+}
+```
+
+## API Reference
+
+### `createRhinoStore(initialState)`
+Creates a store and returns the `RhinoProvider` and hooks tailored to the provided state object.
+- **`initialState`**: A plain object representing the initial global state.
+
+Returns:
+- **`RhinoProvider`**: Context provider to wrap your application.
+- **`useRhinoState(key)`**: Hook similar to `useState`, returns `[value, setValue]`.
+- **`useRhinoValue(key)`**: Hook returning only the current value.
+- **`useSetRhinoState(key)`**: Hook returning only the setter function.
+
+All returned hooks provide strict type inference based on the `initialState` object.
