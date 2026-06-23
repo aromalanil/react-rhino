@@ -1,6 +1,6 @@
 {
   "name": "react-rhino",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "A lightweight, deeply type-safe React global state manager with zero dependencies. Blazingly fast.",
   "type": "module",
   "main": "./dist/cjs/index.js",
